@@ -19,4 +19,4 @@
 + Crud
 
 ### Observações:
-+ No aquivo application.properties, trocar a senha do banco de dados.
++ No arquivo application.properties, trocar a senha do banco de dados.
