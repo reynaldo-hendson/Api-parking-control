@@ -17,6 +17,7 @@
 
 ### Caracteristicas:
 + Crud
++ FindAll com Pageable.
 
 ### Observações:
 + No arquivo application.properties, trocar a senha do banco de dados.
