@@ -12,9 +12,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ *  Implementação da <b>Strategy</b> {@link ParkingSpotRepository}, a qual pode ser
+ *  injetada pelo Spring (via {@link Autowired}). Com isso, como essa classe é um
+ *  {@link Service}, ela será tratada como um <b>Singleton</b>.
+ *
+  */
+
 @Service
 public class ParkingSpotService {
-    final ParkingSpotRepository parkingSpotRepository;
+   
+    // Singleton: Injetar os componentes do Spring com @Autowired.
+    // Strategy: Implementa os métodos definidos na interface do JpaRepository.
+    
+    @Autowired
+    private ParkingSpotRepository parkingSpotRepository;
 
     public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
         this.parkingSpotRepository = parkingSpotRepository;
