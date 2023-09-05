@@ -21,6 +21,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Esse {@link RestController} representa nossa <b>Facade</b>, pois abstrai toda
+ * a complexidade de integrações (Banco de Dados H2) em uma
+ * interface simples e coesa (API REST).
+ * {@link CrossOrigin} Resource Sharing (CORS) é um mecanismo baseado em cabeçalho HTTP
+ * que permite a um servidor indicar qualquer origem (domínio, esquema ou porta) diferente da sua própria,
+ * a partir da qual um navegador deve permitir o carregamento de recursos.
+ */
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/parking-spot")
