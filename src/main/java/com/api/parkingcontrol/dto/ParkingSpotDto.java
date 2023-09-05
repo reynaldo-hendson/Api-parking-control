@@ -4,7 +4,11 @@ package com.api.parkingcontrol.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-
+/**
+ * Data Transfer Object (DTO) ou simplesmente Transfer Object é um padrão de projetos
+ * bastante usado em Java para o transporte de dados entre diferentes componentes de um sistema,
+ * diferentes instâncias ou processos de um sistema distribuído.
+ * */
 
 public class ParkingSpotDto {
     @NotBlank
