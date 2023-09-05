@@ -31,12 +31,23 @@ A relação entre Padrões de Projetos com Java e o spring framework pode-se ser
 </ul>
 
 <hr>
-<h3>Swagger</h3>
-Swagger: localhost:8080/swagger-ui.html
+<h3>Validações</h3>
+<ul>
+<li>Verifica se a vaga já está em usona hora do cadastro.</li>
+<li>Verifica se apartamento e bloco já existem no banco de dados.</li>
+<li>Verifica se o veiculo já não se encontra em outra vaga cadastrada.</li>
+</ul>
+
+<hr>
+
+### Utilize para acessar a interface com os endpoints no Swagger:
+```
+localhost:8080/swagger-ui.html
+```
 
 #### Utilize o git para clonar o repositório:
 ```
-	git clone https://github.com/reynaldo86/Api-parking-control.git	
+git clone https://github.com/reynaldo86/Api-parking-control.git	
 ```
 
 <hr>
