@@ -33,7 +33,7 @@ A relação entre Padrões de Projetos com Java e o spring framework pode-se ser
 <hr>
 <h3>Validações</h3>
 <ul>
-<li>Verifica se a vaga já está em usona hora do cadastro.</li>
+<li>Verifica se a vaga já está em uso na hora do cadastro.</li>
 <li>Verifica se apartamento e bloco já existem no banco de dados.</li>
 <li>Verifica se o veiculo já não se encontra em outra vaga cadastrada.</li>
 </ul>
