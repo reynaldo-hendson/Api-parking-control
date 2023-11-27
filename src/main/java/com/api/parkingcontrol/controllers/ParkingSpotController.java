@@ -4,6 +4,9 @@ import com.api.parkingcontrol.dto.ParkingSpotDto;
 import com.api.parkingcontrol.models.ParkingSpotModel;
 import com.api.parkingcontrol.repository.ParkingSpotRepository;
 import com.api.parkingcontrol.services.ParkingSpotService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -14,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -45,18 +50,23 @@ public class ParkingSpotController {
     /*
     @Valid - validates all attributes of the class DTO. */
     @PostMapping
+    @Operation(summary = "Create a new Parking Spot", description = "Create a new Parking Spot and return the created Parking Spot data")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Parking Spot created successfully"),
+            @ApiResponse(responseCode = "400", description = "One or more parameters are incorrect, check and try again."),
+            @ApiResponse(responseCode = "409", description = "CONFLICT: Parking Spot data provided")
+    })
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto){
         // validation conditions
-        if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())){
+        if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.licensePlateCar())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CONFLICT: There is already a vehicle registered with this license plate.");
         }
-        if(parkingSpotService.exitsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())){
+        if(parkingSpotService.exitsByParkingSpotNumber(parkingSpotDto.parkingSpotNumber())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CONFLICT: Parking spot is already in use! ");
         }
-        if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(),parkingSpotDto.getBlock())){
+        if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.apartment(),parkingSpotDto.block())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CONFLICT: Parking spot already registered for this apartment or block!");
         }
-
 
         var parkingSpotModel = new ParkingSpotModel();
 
@@ -65,6 +75,7 @@ public class ParkingSpotController {
 
         /* Date will be assigned at the time of creation because it does not exist in the DTO.*/
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
 
@@ -99,14 +110,14 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
         var parkingSpotModel = parkingSpotModelOptional.get();
-        parkingSpotModel.setParkingSpotNumber(parkingSpotDto.getParkingSpotNumber());
-        parkingSpotModel.setLicensePlateCar(parkingSpotDto.getLicensePlateCar());
-        parkingSpotModel.setBrandCar(parkingSpotDto.getBrandCar());
-        parkingSpotModel.setModelCar(parkingSpotDto.getModelCar());
-        parkingSpotModel.setColorCar(parkingSpotDto.getColorCar());
-        parkingSpotModel.setResponsibleName(parkingSpotDto.getResponsibleName());
-        parkingSpotModel.setApartment(parkingSpotDto.getApartment());
-        parkingSpotModel.setBlock(parkingSpotDto.getBlock());
+        parkingSpotModel.setParkingSpotNumber(parkingSpotDto.parkingSpotNumber());
+        parkingSpotModel.setLicensePlateCar(parkingSpotDto.licensePlateCar());
+        parkingSpotModel.setBrandCar(parkingSpotDto.brandCar());
+        parkingSpotModel.setModelCar(parkingSpotDto.modelCar());
+        parkingSpotModel.setColorCar(parkingSpotDto.colorCar());
+        parkingSpotModel.setResponsibleName(parkingSpotDto.responsibleName());
+        parkingSpotModel.setApartment(parkingSpotDto.apartment());
+        parkingSpotModel.setBlock(parkingSpotDto.block());
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
     }
 

@@ -11,25 +11,15 @@ import lombok.Setter;
  * bastante usado em Java para o transporte de dados entre diferentes componentes de um sistema,
  * diferentes instâncias ou processos de um sistema distribuído.
  * */
-@Getter
-@Setter
-public class ParkingSpotDto {
-    @NotBlank
-    private String parkingSpotNumber;
-    @NotBlank
-    @Size(max=7)
-    private String licensePlateCar;
-    @NotBlank
-    private String brandCar;
-    @NotBlank
-    private String modelCar;
-    @NotBlank
-    private String colorCar;
-    @NotBlank
-    private String responsibleName;
-    @NotBlank
-    private String apartment;
-    @NotBlank
-    private String block;
-
+public record ParkingSpotDto(
+        @NotBlank String parkingSpotNumber,
+        @NotBlank
+        @Size(max=7) String licensePlateCar,
+        @NotBlank String brandCar,
+        @NotBlank String modelCar,
+        @NotBlank String colorCar,
+        @NotBlank String responsibleName,
+        @NotBlank String apartment,
+        @NotBlank String block
+) {
 }
